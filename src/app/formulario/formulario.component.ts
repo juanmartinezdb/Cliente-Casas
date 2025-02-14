@@ -1,7 +1,8 @@
 import { HousingService } from './../housing.service';
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormService } from '../form.service';
 
 @Component({
   selector: 'app-formulario',
@@ -11,18 +12,23 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 })
 export class FormularioComponent {
   housingService: HousingService = inject(HousingService);
-  applyForm = new FormGroup({
-    firstName: new FormControl(''),
-    lastName: new FormControl(''),
-    email: new FormControl(''),
+  formService: FormService = inject(FormService);
+  applyForm: FormGroup;
+constructor (private fb: FormBuilder){
+  this.applyForm = this.fb.group({
+    firstName: ["", [Validators.required]],
+    lastName: ["",[Validators.required]],
+    email: ["",[Validators.email]]
   });
-
+}
 
   submitApplication() {
-    this.housingService.submitApplication(
-      this.applyForm.value.firstName ?? '',
-      this.applyForm.value.lastName ?? '',
-      this.applyForm.value.email ?? '',
-    );
+    if (this.applyForm.valid){
+      this.formService.submitApplication(
+        this.applyForm.value.firstName ?? '',
+        this.applyForm.value.lastName ?? '',
+        this.applyForm.value.email ?? '',
+      )
+    }
   }
 }
