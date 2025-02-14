@@ -1,8 +1,10 @@
-import { HousingService } from './../housing.service';
+import { Solicitud } from './../../model/solicitud';
+import { HousingService } from '../../service/housing.service';
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { FormService } from '../form.service';
+import { FormService } from '../../service/form.service';
+import { HousingLocation } from '../../model/housinglocation';
 
 @Component({
   selector: 'app-formulario',
@@ -14,6 +16,9 @@ export class FormularioComponent {
   housingService: HousingService = inject(HousingService);
   formService: FormService = inject(FormService);
   applyForm: FormGroup;
+
+
+
 constructor (private fb: FormBuilder){
   this.applyForm = this.fb.group({
     firstName: ["", [Validators.required]],
@@ -24,11 +29,14 @@ constructor (private fb: FormBuilder){
 
   submitApplication() {
     if (this.applyForm.valid){
-      this.formService.submitApplication(
-        this.applyForm.value.firstName ?? '',
-        this.applyForm.value.lastName ?? '',
-        this.applyForm.value.email ?? '',
-      )
+
+      let solicitud: Solicitud = {
+        firstName: this.applyForm.value.firstName ,
+        lastName: this.applyForm.value.lastName ,
+        email: this.applyForm.value.email
+      }
+
+      this.formService.submitApplication(solicitud)
     }
   }
 }
