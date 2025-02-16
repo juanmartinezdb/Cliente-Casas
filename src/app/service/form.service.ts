@@ -1,3 +1,4 @@
+import { BehaviorSubject } from 'rxjs';
 import { Solicitud } from './../model/solicitud';
 import { Injectable } from '@angular/core';
 
@@ -5,23 +6,24 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class FormService {
-solicitudes: Solicitud[]= [];
+private solicitudesSubject = new BehaviorSubject<Solicitud[]>(this.cargarSolicitudes());
+solicitud$ = this.solicitudesSubject.asObservable();
 
-  constructor() { }
-  submitApplication(sol: Solicitud) {
-this.cargaSolicitudes();
-this.agegarSolicitud(sol);
-this.cargaSolicitudes();
-console.log(this.solicitudes);
+  constructor() {  }
 
-  }
-
-  cargaSolicitudes(){
+  cargarSolicitudes(): Solicitud[] {
     const solicitudesString = localStorage.getItem('solicitudes');
-    this.solicitudes = solicitudesString?JSON.parse(solicitudesString) as Solicitud[]:[];
+    return solicitudesString ? JSON.parse(solicitudesString) as Solicitud[] : [];
   }
-  agegarSolicitud(sol : Solicitud){
-    this.solicitudes.push(sol);
-    localStorage.setItem('solicitudes', JSON.stringify(this.solicitudes));
+
+  guardarSolicitudes(solicitudes: Solicitud[]): void {
+    localStorage.setItem('solicitudes', JSON.stringify(solicitudes));
+  }
+
+  submitApplication(sol: Solicitud) {
+    const solicitudesActuales = this.solicitudesSubject.getValue();
+    const nuevasSolicitudes = [...solicitudesActuales, sol];
+    this.solicitudesSubject.next(nuevasSolicitudes);
+    this.guardarSolicitudes(nuevasSolicitudes);
   }
 }

@@ -16,7 +16,7 @@ export class FormularioComponent {
   housingService: HousingService = inject(HousingService);
   formService: FormService = inject(FormService);
   applyForm: FormGroup;
-
+@Input() housingId!: number | undefined;
 
 
 constructor (private fb: FormBuilder){
@@ -31,6 +31,7 @@ constructor (private fb: FormBuilder){
     if (this.applyForm.valid){
 
       let solicitud: Solicitud = {
+        houseid: this.housingId!,
         firstName: this.applyForm.value.firstName ,
         lastName: this.applyForm.value.lastName ,
         email: this.applyForm.value.email

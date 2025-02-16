@@ -1,0 +1,14 @@
+
+
+@for (sol of solicitudes; track $index) {
+@let house = houseById(sol.houseid);
+  <br>
+  <div>
+    <a [routerLink]="['/details', house?.id]" >{{house?.name}}</a>
+    <h4>{{house?.city}}</h4>
+    <p><b>Name: </b>{{sol.firstName}} {{sol.lastName}}</p>
+    <p><b>Email: </b> {{sol.email}}</p>
+    <br>
+    <hr>
+  </div>
+}
