@@ -1,12 +1,14 @@
 import { BehaviorSubject } from 'rxjs';
 import { Solicitud } from './../model/solicitud';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { LocalStorageHandlerService } from './local-storage-handler.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FormService {
 private solicitudesSubject = new BehaviorSubject<Solicitud[]>(this.cargarSolicitudes());
+local = inject(LocalStorageHandlerService);
 solicitud$ = this.solicitudesSubject.asObservable();
 
   constructor() {  }
@@ -19,6 +21,10 @@ solicitud$ = this.solicitudesSubject.asObservable();
   guardarSolicitudes(solicitudes: Solicitud[]): void {
     localStorage.setItem('solicitudes', JSON.stringify(solicitudes));
   }
+
+actualizarSolicitudes(): void {
+  this.solicitudesSubject.next(this.local.get('solicitudes', []))
+}
 
   submitApplication(sol: Solicitud) {
     const solicitudesActuales = this.solicitudesSubject.getValue();
