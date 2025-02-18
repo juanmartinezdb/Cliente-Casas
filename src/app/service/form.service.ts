@@ -7,8 +7,8 @@ import { LocalStorageHandlerService } from './local-storage-handler.service';
   providedIn: 'root'
 })
 export class FormService {
+  local = inject(LocalStorageHandlerService);
 private solicitudesSubject = new BehaviorSubject<Solicitud[]>(this.cargarSolicitudes());
-local = inject(LocalStorageHandlerService);
 solicitud$ = this.solicitudesSubject.asObservable();
 
   constructor() {  }
