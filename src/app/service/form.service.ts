@@ -13,23 +13,20 @@ solicitud$ = this.solicitudesSubject.asObservable();
 
   constructor() {  }
 
+  actualizarSolicitudes(): void {
+    this.solicitudesSubject.next(this.local.get('solicitudes', []))
+  }
+
   cargarSolicitudes(): Solicitud[] {
-    const solicitudesString = localStorage.getItem('solicitudes');
-    return solicitudesString ? JSON.parse(solicitudesString) as Solicitud[] : [];
+    return this.local.get('solicitudes', []);
   }
 
   guardarSolicitudes(solicitudes: Solicitud[]): void {
-    localStorage.setItem('solicitudes', JSON.stringify(solicitudes));
+    this.local.set('solicitudes', solicitudes);
   }
-
-actualizarSolicitudes(): void {
-  this.solicitudesSubject.next(this.local.get('solicitudes', []))
-}
-
+  
   submitApplication(sol: Solicitud) {
-    const solicitudesActuales = this.solicitudesSubject.getValue();
-    const nuevasSolicitudes = [...solicitudesActuales, sol];
-    this.solicitudesSubject.next(nuevasSolicitudes);
-    this.guardarSolicitudes(nuevasSolicitudes);
+    this.local.add('solicitudes', sol);
+    this.actualizarSolicitudes();
   }
 }
