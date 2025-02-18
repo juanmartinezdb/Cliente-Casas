@@ -20,9 +20,10 @@ export class ListSolicitudesComponent implements OnInit {
   local = inject(LocalStorageHandlerService);
 
   ngOnInit(): void {
-    this.houseService.getAllHousingLocations().then((housingLocationList: HousingLocation[]) => {
-      this.houses = housingLocationList;
-    });
+    this.houseService.getAllHousingLocations().subscribe(houseList => this.houses=houseList);
+    // this.houseService.getAllHousingLocations().then((housingLocationList: HousingLocation[]) => {
+    //   this.houses = housingLocationList;
+    // });
 this.chargeSolicitudes();
   }
 
