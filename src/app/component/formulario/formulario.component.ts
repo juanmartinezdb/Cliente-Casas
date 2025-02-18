@@ -38,6 +38,7 @@ constructor (private fb: FormBuilder){
       }
 
       this.formService.submitApplication(solicitud)
+      alert("formulario enviado con exito");
     }
   }
 }
