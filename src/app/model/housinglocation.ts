@@ -10,5 +10,7 @@ export interface HousingLocation {
     coordinate: {
       latitude:number,
       longitude:number
-    };
+    },
+
+    sistemasSeguridad: string[];
   }

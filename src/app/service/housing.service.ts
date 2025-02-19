@@ -18,6 +18,10 @@ http = inject(HttpClient);
   getHousingLocationById(id: number): Observable<HousingLocation> {
     return this.http.get<HousingLocation>(`${this.url}/${id}`);
   }
+
+  addHouse = (newHouse: HousingLocation) => this.http.post(this.url, newHouse);
+
+
   // async getAllHousingLocations(): Promise<HousingLocation[]> {
   //   const data = await fetch(this.url);
   //   return (await data.json()) ?? [];

@@ -1,0 +1,44 @@
+<form [formGroup]="formNewHouse" (submit)="submitHouse()">
+  <label for="first-name">Name</label>
+  <input id="frst-name" type="text" formControlName="name" />
+  @if (formNewHouse.get('name')?.touched && formNewHouse.get('name')?.invalid) {
+    <p class="text-danger">Introduce a name</p>
+          }
+  <label for="city">city</label>
+  <input id="city" type="text" formControlName="city" />
+  @if (formNewHouse.get('city')?.touched && formNewHouse.get('city')?.invalid) {
+    <p class="text-danger">Introduce a city</p>
+          }
+  <label for="state">state</label>
+  <input id="state" type="text" formControlName="state" />
+  @if (formNewHouse.get('state')?.touched && formNewHouse.get('state')?.invalid) {
+    <p class="text-danger">Introduce a state</p>
+          }
+  <label for="photo">photo (Optional)</label>
+  <input id="photo" type="text" formControlName="photo" />
+  <label for="availableUnits">available Units</label>
+  <input id="availableUnits" type="number" formControlName="availableUnits" />
+  @if (formNewHouse.get('availableUnits')?.touched && formNewHouse.get('availableUnits')?.invalid) {
+    <p class="text-danger">Introduce a available Units</p>
+          }
+  <label for="wifi">wifi</label>
+  <input id="wifi" type="checkbox" formControlName="wifi" />
+  <label for="laundry">laundry</label>
+  <input id="laundry" type="checkbox" formControlName="laundry" />
+  <label for="latitude">Latitude: </label>
+  <input id="latitude" type="number" formControlName="latitude" />
+  @if (formNewHouse.get('latitude')?.touched && formNewHouse.get('latitude')?.invalid) {
+    <p class="text-danger">Introduce a latitude</p>
+          }
+  <label for="longitude">longitude</label>
+  <input id="longitude" type="number" formControlName="longitude" />
+  @if (formNewHouse.get('longitude')?.touched && formNewHouse.get('longitude')?.invalid) {
+    <p class="text-danger">Introduce a longitude</p>
+          }
+  <label for="sistemasSeguridad">Security Sistems:</label>
+  @for (sistema of sistemasSeguridad; track $index) {
+    <label for="sistemasSeguridad">{{sistema}}</label>
+    <input type="checkbox" name="sistemasSeguridad" id="{{sistema}}" value="{{sistema}}">
+  }
+  <button type="submit" class="primary">Registrar Casa</button>
+</form>
