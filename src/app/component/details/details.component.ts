@@ -5,11 +5,12 @@ import {ActivatedRoute} from '@angular/router';
 import { HousingService } from '../../service/housing.service';
 import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import { HousingLocation } from '../../model/housinglocation';
+import { MapComponent } from '../map/map.component';
 
 
   @Component({
   selector: 'app-details',
-  imports: [CommonModule, ReactiveFormsModule, FormularioComponent],
+  imports: [CommonModule, ReactiveFormsModule, FormularioComponent, MapComponent],
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.css'],
 })

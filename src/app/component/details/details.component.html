@@ -11,6 +11,7 @@
     </section>
     <section class="listing-features">
       <h2 class="section-heading">About this housing location</h2>
+
       <ul>
         <li>Units available: {{ housingLocation?.availableUnits }}</li>
         <li>Does this location have wifi: {{ housingLocation?.wifi }}</li>
@@ -25,3 +26,10 @@
     </section>
 
   </article>
+  <section class="listing-map">
+    <app-map
+    [latitude]="36.66577098603773"
+    [longitude]="-4.5012710988521585"
+  />
+  </section>
+
